@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://vail-ucla.github.io/sitemap.xml
+Sitemap: https://matthew-leng.github.io/VAIL-UCLA.github.io/sitemap.xml
