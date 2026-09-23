@@ -77,7 +77,7 @@ nav_order: 1
   .ds-row > div { flex: 1; min-width: 0; }
   .ds-row-center { align-items: center; }
 
-  /* FDπk table: leftmost dataset column spanning its rows */
+  /* FDπ table: leftmost dataset column spanning its rows */
   .ds-fd-table th:first-child,
   .ds-fd-table td.ds-dataset {
     text-align: center;
@@ -148,7 +148,7 @@ nav_order: 1
 </p>
 
 <p class="ds-resource-links">
-  <a href="https://vail.cs.ucla.edu/DreamStream/"><b>Code (Coming Soon)</b></a> | <a href="https://vail.cs.ucla.edu/DreamStream"><b>Paper</b></a>
+  <a href="https://github.com/VAIL-UCLA/DreamStream"><b>Code</b></a> | <a href="https://arxiv.org/abs/2609.26792"><b>Paper</b></a>
 </p>
 
 <div class="img-container" style="width: 100%; margin: 0 auto;">
@@ -160,7 +160,7 @@ nav_order: 1
     <ul style="list-style-type: none; padding-left: 0;">
       <strong>DreamStream</strong> is a generative closed-loop simulator for end-to-end driving.<br><br>
       1. 🎬 <strong>Generative closed-loop simulator.</strong> DreamStream couples a physics simulator with an autoregressive video model distilled from a pretrained video model, delivering diverse visual and behavioral realism.<br>
-      2. 📏 <strong>FDπ<sup>k</sup>, a policy-oriented visual alignment metric.</strong> Measured by the Fréchet distance over the scene-context features that E2E policies use to generate decisions, it exhibits stronger correlation with the driving performance than FID and FVD. Under FDπ<sup>k</sup>, DreamStream improves by <strong>1.6×</strong> on nuScenes and <strong>4.7×</strong> on NAVSIM.<br>
+      2. 📏 <strong>FDπ, a policy-oriented visual alignment metric.</strong> Measured by the Fréchet distance over the scene-context features that E2E policies use to generate decisions, it exhibits stronger correlation with the driving performance than FID and FVD. Under FDπ, DreamStream improves by <strong>1.6×</strong> on nuScenes and <strong>4.7×</strong> on NAVSIM.<br>
       3. 🚦 <strong>Navhard-CL benchmark.</strong> Built on DreamStream, it turns the non-reactive NAVSIM <em>navhard</em> benchmark into <strong>reactive closed-loop</strong>, with safety-critical adversarial behaviors and diverse weather variations. It exposes failure modes prior closed-loop benchmarks overlook: <em>scorer bias</em>, <em>proposal-coverage failure</em>, and <em>visual brittleness</em>.
   </ul>
 </div>
@@ -169,10 +169,6 @@ nav_order: 1
 
 ## DreamStream Overview
 
-<div class="img-container" style="width: 100%; margin: 0 auto;">
-    <img src="../assets/projects/dreamstream/pipeline.jpg" class="my-image" alt="DreamStream pipeline overview and closed-loop rollout" />
-</div>
-<br>
 DreamStream consists of closed-loop interaction between three components: a <strong>physics simulator</strong> that maintains the symbolic states (agents poses, HD map), an <strong>autoregressive video model</strong> that renders the camera frames, and the <strong>E2E driving policy</strong> under evaluation. Each closed-loop iteration proceeds in three steps:<br>
 (1) <strong>Plan</strong>: the policy produces a planned trajectory from the most recent camera frames.<br>
 (2) <strong>Simulate</strong>: the simulator executes the plan and provides traffic-layout condition (perspective projection of the HD map and agents 3D boxes) for each new state.<br>
@@ -191,9 +187,9 @@ Scenarios start from real-world driving logs, and surrounding agents can be cont
 
 <!--research-section-splitter-->
 
-## FDπ<sup>k</sup>: Policy-Oriented Visual Alignment
+## FDπ: Policy-Oriented Visual Alignment
 
-Perceptual metrics such as FID and FVD were designed for visual quality. Controllability metrics (3D detection, map segmentation) measure only one task-specific aspects of what human sees. <strong>FDπ<sup>k</sup></strong> instead measures from the policies' perspective: for a driving policy, we extract the scene-context features it uses to generate actions from real camera frames and generated frames of the same scenes, and compute the Fréchet distance between the resulting feature distributions. This captures how much the simulator perturbs the visual information the policy uses to act. It is normalized per-policy and averaged across a panel of public E2E policies.
+Perceptual metrics such as FID and FVD were designed for visual quality. Controllability metrics (3D detection, map segmentation) measure only one task-specific aspects of what human sees. <strong>FDπ</strong> instead measures from the policies' perspective: for a driving policy, we extract the scene-context features it uses to generate actions from real camera frames and generated frames of the same scenes, and compute the Fréchet distance between the resulting feature distributions. This captures how much the simulator perturbs the visual information the policy uses to act. It is normalized per-policy and averaged across a panel of public E2E policies.
 
 <div class="ds-row ds-row-center" style="margin-top: 14px;">
   <div>
@@ -203,7 +199,7 @@ Perceptual metrics such as FID and FVD were designed for visual quality. Control
           <tr>
             <th>Dataset</th>
             <th>Method</th>
-            <th>FDπ<sup>k</sup> ↓</th>
+            <th>FDπ ↓</th>
             <th>FID ↓</th>
           </tr>
         </thead>
@@ -222,15 +218,15 @@ Perceptual metrics such as FID and FVD were designed for visual quality. Control
       </table>
     </div>
     <p class="ds-note">
-      FDπ<sup>k</sup> between real and generated/rendered frames from simulators. <sup>*</sup> trained on the evaluation set. FID misranks visual alignment.
+      FDπ between real and generated/rendered frames from simulators. <sup>*</sup> trained on the evaluation set. FID misranks visual alignment.
     </p>
   </div>
   <div style="flex: 0 0 40%;">
     <div class="img-container" style="width: 100%; margin: 0 auto;">
-        <img src="../assets/projects/dreamstream/metric_correlation.png" class="my-image" alt="Correlation of FD-pi-k, FID, and FVD with PDMS" />
+        <img src="../assets/projects/dreamstream/metric_correlation.png" class="my-image" alt="Correlation of FD-pi, FID, and FVD with PDMS" />
     </div>
     <p class="ds-caption" style="font-size: 0.9em;">
-      FDπ<sup>k</sup> correlates strongly with driving performance (PDMS), whereas FID and FVD do not.
+      FDπ correlates strongly with driving performance (PDMS), whereas FID and FVD do not.
     </p>
   </div>
 </div>
